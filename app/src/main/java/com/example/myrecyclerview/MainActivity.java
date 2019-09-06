@@ -1,6 +1,7 @@
 package com.example.myrecyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,23 +31,30 @@ public class MainActivity extends AppCompatActivity {
         ListHeroAdapter listHeroAdapter = new ListHeroAdapter(list);
         rvHeroes.setAdapter(listHeroAdapter);
     }
+    private void showRecylerGrid(){
+        rvHeroes.setLayoutManager(new GridLayoutManager(this, 2));
+        GridHeroAdapter gridHeroAdapter = new GridHeroAdapter(list);
+        rvHeroes.setAdapter(gridHeroAdapter);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
-//    @Override
-//    public boolean onOprionsItemSelected(MenuItem item){
-//        setMode(item.getItemId());
-//        return super.onOptionsItemSelected(item);
-//    }
+ //   @Override
+    public boolean onOprionsItemSelected(@org.jetbrains.annotations.NotNull MenuItem item){
+        setMode(item.getItemId());
+        return super.onOptionsItemSelected(item);
+    }
 
     public void setMode(int selectedMode) {
         switch (selectedMode){
             case R.id.action_list:
+                showRecyclerList();
                 break;
 
             case R.id.action_grid:
+                showRecylerGrid();
                 break;
 
             case R.id.action_cardview:
