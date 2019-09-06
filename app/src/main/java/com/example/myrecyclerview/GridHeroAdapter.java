@@ -1,10 +1,15 @@
 package com.example.myrecyclerview;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -17,18 +22,26 @@ public class GridHeroAdapter extends RecyclerView.Adapter<GridHeroAdapter.GridVi
     @NonNull
     @Override
     public GridViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i){
-        return null;
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_grid_hero, viewGroup, false);
+        return new GridViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull GridViewHolder gridViewHolder, int i){
+        Glide.with(gridViewHolder.itemView.getContext())
+                .load(listHero.get(i).getPhoto())
+                .apply(new RequestOptions().override(350,550))
+                .into(gridViewHolder.imgPhoto);
     }
     @Override
     public int getItemCount(){
-        return 0;
+        return listHero.size();
     }
-    public class GridViewHolder extends RecyclerView.ViewHolder{
-        public GridViewHolder(@NonNull View itemView){
+     class GridViewHolder extends RecyclerView.ViewHolder{
+         ImageView imgPhoto;
+
+         GridViewHolder(@NonNull View itemView){
             super(itemView);
+
         }
     }
 }
